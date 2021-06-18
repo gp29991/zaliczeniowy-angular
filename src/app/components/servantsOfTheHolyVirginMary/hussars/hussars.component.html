@@ -1,0 +1,51 @@
+<div class="container" style="max-width: 1000px">
+    
+    <ul class="list-group mt-3">
+        <li *ngFor = "let hussar of hussars" class="list-group-item" (click)="onSelect(hussar)" [class.active] = "hussar === selectedHussar">
+        <span class="align-middle">Imię i nazwisko sługi Najświętszej Maryi Panny Dziewicy: {{hussar.firstName}}  {{hussar.lastName}}</span>
+        </li>
+    </ul>
+
+    <div *ngIf="selectedHussar" class="mt-3" id="hussarDetails">
+        <div class="row">
+            <div class="col-6"><strong>Wybrany sługa:</strong></div>
+            <div class="w-100"></div>
+            <div class="col-6"><strong>Imię: </strong>{{selectedHussar.firstName}}</div>
+            <div class="w-100"></div>
+            <div class="col-6"><strong>Nazwisko: </strong>{{selectedHussar.lastName}}</div>
+        </div>
+        <div *ngIf="!editModeActive" class="row">
+            <div class="col-1"><button class="btn-sm btn-success" (click)="editMode(true)">Edytuj</button></div>
+            <div class="col-1"><button class="btn-sm btn-danger" (click)="deleteHussar()">Usuń</button></div>
+        </div>
+        
+        <div class="alert alert-danger col-6" *ngIf="errors.length > 0 && editModeActive">
+            Podczas edycji danych sługi wystąpiły następujące błędy:
+            <ul>
+              <li *ngFor="let error of errors">
+                {{ error }}
+              </li>
+            </ul>
+        </div>
+        <div *ngIf="editModeActive">
+            <div class="row mt-3">
+                <input type="hidden" [value]="hussar.id" [(ngModel)]="hussar.id">
+                <div class="col-6"><label  for="firstName" class="form-label">Imię sługi Maryi Panny Dziewicy</label></div>
+                <div class="w-100"></div>
+                <div class="col-6"><input id="firstName" type="text" class="form-control" [value]="hussar.firstName" [(ngModel)]="hussar.firstName"></div>
+                <div class="w-100"></div>
+                <div class="col-6 mt-3"><label for="lastName" class="form-label">Nazwisko sługi Maryi Panny Dziewicy</label></div>
+                <div class="w-100"></div>
+                <div class="col-6"><input id="lastName" type="text" class="form-control" [value]="hussar.lastName" [(ngModel)]="hussar.lastName"></div>
+                <div class="w-100"></div>
+                <div class="col-1"></div>
+                <div class="col-4 mt-3"><button (click)="editHussar()" class="btn btn-primary w-100">Zapisz sługę Maryi Panny Dziewicy</button></div>
+                <div class="col-1"></div>
+                <div class="w-100"></div>
+                <div class="col-1"></div>
+                <div class="col-4 mt-3 text-center"><button (click)="editMode(false)" class="btn btn-secondary w-100">Zaprzestań edycji sługi</button></div>
+                <div class="col-1"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="container" style="max-width: 500px">
+    <div class="alert alert-danger" *ngIf="errors.length > 0 && !addedHussar">
+        Podczas rejestracji nowego sługi wystąpiły następujące błędy:
+        <ul>
+          <li *ngFor="let error of errors">
+            {{ error }}
+          </li>
+        </ul>
+    </div>
+    <div *ngIf="!addedHussar">
+        <div class="row mt-3">
+            <div class="col"><label  for="firstName" class="form-label">Imię sługi Maryi Panny Dziewicy</label></div>
+            <div class="w-100"></div>
+            <div class="col"><input class="col-6" id="firstName" type="text" class="form-control" [(ngModel)]="hussar.firstName"></div>
+            <div class="w-100"></div>
+            <div class="col mt-3"><label for="lastName" class="form-label">Nazwisko sługi Maryi Panny Dziewicy</label></div>
+            <div class="w-100"></div>
+            <div class="col"><input id="lastName" type="text" class="form-control" [(ngModel)]="hussar.lastName"></div>
+            <div class="w-100"></div>
+            <div class="col-2"></div>
+            <div class="col-8 mt-3"><button (click)="addHussar()" class="btn btn-primary w-100">Zostań sługą Maryi Panny Dziewicy</button></div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    <div *ngIf="addedHussar" class="mt-3">
+        <h4>Zostałeś przyjęty w poczet sług</h4>
+    </div>
+</div>
