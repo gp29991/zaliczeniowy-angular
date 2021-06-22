@@ -17,6 +17,15 @@
             <div class="w-100"></div>
             <div class="col"><input id="lastName" type="text" class="form-control" [(ngModel)]="hussar.lastName"></div>
             <div class="w-100"></div>
+            <div class="col mt-3"><label  for="bannerID" class="form-label">Chorągiew</label></div>
+            <div class="w-100"></div>
+            <div class="col">
+                <select id="bannerID" class="form-select" [(ngModel)]="hussar.bannerID">
+                    <option [ngValue]="null" ngDefaultControl selected>Brak</option>
+                    <option *ngFor="let banner of banners" [ngValue]="banner.id" ngDefaultControl>{{banner.name}}</option>
+                </select>
+            </div>
+            <div class="w-100"></div>
             <div class="col-2"></div>
             <div class="col-8 mt-3"><button (click)="addHussar()" class="btn btn-primary w-100">Zostań sługą Maryi Panny Dziewicy</button></div>
             <div class="col-2"></div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Banner } from 'src/app/models/banner';
 import { Hussar } from 'src/app/models/hussar';
+import { BannersService } from 'src/app/services/banners.service';
 import { HussarsService } from 'src/app/services/hussars.service';
 
 @Component({
@@ -14,8 +16,14 @@ export class HussarsComponent implements OnInit {
   hussar: Hussar = new Hussar();
   editModeActive: boolean = false;
   errors: string[] = [];
+  banners: Banner[] = [];
 
-  constructor(private hussarsService: HussarsService) { }
+  constructor(private hussarsService: HussarsService, private bannersService: BannersService) {
+    this.bannersService.getAllBanners()
+      .subscribe(response =>{
+        this.banners = response as Banner[];
+      })
+  }
 
   ngOnInit(): void {
     this.viewAllHussars();
@@ -39,6 +47,13 @@ export class HussarsComponent implements OnInit {
       .subscribe(response =>{
         this.hussars = response as Hussar[];
       })
+  }
+
+  getBannerName(id: number): string{
+    if(id === null){
+      return "Brak";
+    }
+    return this.banners.find(banner => banner.id === id).name;
   }
 
   editHussar(){

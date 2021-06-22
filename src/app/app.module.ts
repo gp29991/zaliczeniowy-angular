@@ -10,6 +10,7 @@ import { AddHussarComponent } from './components/servantsOfTheHolyVirginMary/add
 import { HolyMaryComponent } from './components/holy-mary/holy-mary.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './route-reuse-strategy';
+import { BannersComponent } from './components/banners/banners/banners.component';
 
 
 
@@ -18,7 +19,8 @@ import { CustomReuseStrategy } from './route-reuse-strategy';
     AppComponent,
     HussarsComponent,
     AddHussarComponent,
-    HolyMaryComponent
+    HolyMaryComponent,
+    BannersComponent
   ],
   imports: [
     BrowserModule,

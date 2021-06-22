@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Banner } from 'src/app/models/banner';
 import { Hussar } from 'src/app/models/hussar';
+import { BannersService } from 'src/app/services/banners.service';
 import { HussarsService } from 'src/app/services/hussars.service';
 
 @Component({
@@ -9,16 +11,17 @@ import { HussarsService } from 'src/app/services/hussars.service';
 })
 export class AddHussarComponent implements OnInit {
 
-  // hussar: Hussar = {
-  //   id: -1,
-  //   firstName: '',
-  //   lastName: ''
-  // }
   hussar: Hussar = new Hussar();
   addedHussar: boolean = false;
   errors: string[] = [];
+  banners: Banner[] = [];
 
-  constructor(private hussarsService: HussarsService) {  }
+  constructor(private hussarsService: HussarsService, private bannersService: BannersService) { 
+    this.bannersService.getAllBanners()
+      .subscribe(response =>{
+        this.banners = response as Banner[];
+      })
+   }
 
   ngOnInit(): void {
   }
@@ -38,13 +41,4 @@ export class AddHussarComponent implements OnInit {
         }
       });
   }
-
-  // newHussar(): void {
-  //   this.addedHussar = false;
-  //   this.hussar = {
-  //     id: -1,
-  //     firstName: '',
-  //     lastName: ''
-  //   }
-  // }
 }

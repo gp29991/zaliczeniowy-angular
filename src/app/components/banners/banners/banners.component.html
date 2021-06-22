@@ -1,0 +1,79 @@
+<div class="container" style="max-width: 500px">
+    <div class="alert alert-danger" *ngIf="errors.length > 0 && !editModeActive">
+        Podczas rejestracji nowej chorągwi wystąpiły następujące błędy:
+        <ul>
+          <li *ngFor="let error of errors">
+            {{ error }}
+          </li>
+        </ul>
+    </div>
+    <div>
+        <div class="row mt-3" *ngIf="!editModeActive">
+            <div class="col"><label  for="name" class="form-label">Nazwa chorągwi</label></div>
+            <div class="w-100"></div>
+            <div class="col"><input class="col-6" id="name" type="text" class="form-control" [(ngModel)]="banner.name"></div>
+            <div class="w-100"></div>
+            <div class="col-2"></div>
+            <div class="col-8 mt-3"><button (click)="addBanner()" class="btn btn-primary w-100">Dodaj chorągiew</button></div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+
+    <ul class="list-group mt-3">
+        <div *ngIf = "banners.length === 0" class="text-center">Brak chorągwi</div>
+        <li *ngFor = "let banner of banners" class="list-group-item" (click)="onSelect(banner)" [class.active] = "banner === selectedBanner" [class.disabled] = "editModeActive">
+        <span class="align-middle">Nazwa chorągwi: {{banner.name}}</span>
+        </li>
+    </ul>
+
+    <div *ngIf="selectedBanner" class="mt-3" id="bannerDetails">
+        <div class="row">
+            <div class="col"><strong>Wybrana chorągiew:</strong></div>
+            <div class="w-100"></div>
+            <div class="col"><strong>Nazwa: </strong>{{selectedBanner.name}}</div>
+        </div>
+        <div *ngIf="!editModeActive" class="row">
+            <div class="col-2"><button class="btn-sm btn-success" (click)="editMode(true)">Edytuj</button></div>
+            <div class="col-2"><button class="btn-sm btn-danger" (click)="deleteBanner()">Usuń</button></div>
+            <div *ngIf="!showingHussarsUnderBanner" class="col-6"><button class="btn-sm btn-secondary" (click)="showHussarsUnderBanner(true)">Pokaż listę husarów w chorągwi</button></div>
+            <div *ngIf="showingHussarsUnderBanner" class="col-6"><button class="btn-sm btn-secondary" (click)="showHussarsUnderBanner(false)">Ukryj listę husarów w chorągwi</button></div>
+        </div>
+        
+        <div class="col" *ngIf="!editModeActive && showingHussarsUnderBanner">
+            <div *ngIf = "hussarsUnderBanner.length === 0" class="text-center">Brak husarów w chorągwi</div>
+            <div *ngIf = "hussarsUnderBanner.length !== 0">Chorągiew ma następujących husarów:</div>
+            <ul>
+                <li *ngFor="let hussar of hussarsUnderBanner">
+                    {{ hussar.firstName }} {{ hussar.lastName }}
+                </li>
+            </ul>
+        </div>
+
+        <div class="alert alert-danger col" *ngIf="errors.length > 0 && editModeActive">
+            Podczas edycji danych chorągwi wystąpiły następujące błędy:
+            <ul>
+              <li *ngFor="let error of errors">
+                {{ error }}
+              </li>
+            </ul>
+        </div>
+        <div *ngIf="editModeActive">
+            <div class="row mt-3">
+                <input type="hidden" [ngValue]="banner.id" [(ngModel)]="banner.id">
+                <div class="col"><label  for="name" class="form-label">Nazwa chorągwi</label></div>
+                <div class="w-100"></div>
+                <div class="col"><input id="name" type="text" class="form-control" [ngValue]="banner.name" [(ngModel)]="banner.name"></div>
+                <div class="w-100"></div>
+                <div class="col-2"></div>
+                <div class="col-8 mt-3"><button (click)="editBanner()" class="btn btn-primary w-100">Zapisz chorągiew</button></div>
+                <div class="col-2"></div>
+                <div class="w-100"></div>
+                <div class="col-2"></div>
+                <div class="col-8 mt-3 text-center"><button (click)="editMode(false)" class="btn btn-secondary w-100">Zaprzestań edycji chorągwi</button></div>
+                <div class="col-2"></div>
+                <div class="w-100 mt-3"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
